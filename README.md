@@ -29,7 +29,7 @@ result:{
 }
 ```
 
-# 全参数调用示例
+# 全参数示例
 ```
 new ImgMainColor({
   src: './demo_1.png',

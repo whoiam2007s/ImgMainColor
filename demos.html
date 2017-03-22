@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<script src="./ImgMainColor.js"></script>
+<body>
+<style>
+    .item{
+        float: left;
+        padding: 50px;
+        width: 300px;
+        height: 300px;
+    }
+</style>
+
+<div class="demos"></div>
+
+<script>
+
+    var demos = document.getElementsByClassName('demos')[0];
+    var html = '';
+    for(var i=1; i<7; i++){
+        html += '<div class="item item_'+i+'"> <img src="./demo_'+i+'.png" /> </div>'
+    }
+    demos.innerHTML = html;
+
+    new ImgMainColor({
+        src: './demo_1.png'
+    }, function(color){
+        document.getElementsByClassName('item_1')[0].style.backgroundColor=color.hex;
+    });
+
+    new ImgMainColor({
+        src: './demo_2.png',
+        size: 100,
+    }, function(color){
+        document.getElementsByClassName('item_2')[0].style.backgroundColor=color.hex;
+    });
+
+    new ImgMainColor({
+        src: './demo_3.png',
+        exclude: ['#e5e2e2', '#20211e'],
+    }, function(color){
+        document.getElementsByClassName('item_3')[0].style.backgroundColor=color.rgb;
+    });
+    new ImgMainColor({
+        src: './demo_4.png',
+        exclude: ['#fff'],
+    }, function(color){
+        document.getElementsByClassName('item_4')[0].style.backgroundColor=color.rgb;
+    });
+    new ImgMainColor({
+        src: './demo_5.png',
+        exclude: ['rgba(189, 196, 192, 0.498039)'],
+    }, function(color){
+        document.getElementsByClassName('item_5')[0].style.backgroundColor=color.rgba;
+    });
+    new ImgMainColor({
+        src: './demo_6.png',
+        level: 16,
+    }, function(color){
+        document.getElementsByClassName('item_6')[0].style.backgroundColor=color.rgba;
+    });
+
+</script>
+
+</body>
+</html>

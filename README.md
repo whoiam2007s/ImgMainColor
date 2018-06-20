@@ -1,6 +1,11 @@
 # ImgMainColor
 > 获取图片主色调的插件
 
+## demo
+```
+[ImgMainColor Demos](https://whoiam2007s.github.io/ImgMainColor/demos.html)
+```
+
 ## 传入参数
 ```
 options

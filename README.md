@@ -3,7 +3,7 @@
 
 ## demo
 ```
-[ImgMainColor Demos](https://whoiam2007s.github.io/ImgMainColor/demos.html)
+* [ImgMainColor Demos](https://whoiam2007s.github.io/ImgMainColor/demos.html)
 ```
 
 ## 传入参数

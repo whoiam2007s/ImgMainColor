@@ -27,7 +27,6 @@
     "use strict";
 
     var ImgMainColor = function(options, callback){
-
         this.COLOR_SIZE = 40;//色块，默认40个像素
         this.EXCLUDE_COLOR = [];//排除的颜色
         this.LEVEL = 32;//默认色值分级256/32，每个8级，共8*4个等级
@@ -44,9 +43,9 @@
                 canvas.height = img.height;
                 var context = canvas.getContext('2d');
                 context.drawImage(img, 0, 0);
-                return context.getImageData(0, 0, img.width, img.height).data
+                return context.getImageData(0, 0, img.width, img.height).data;
             }catch (e){
-                return []
+                return [];
             }
         };
 
@@ -55,13 +54,13 @@
             img.src = src;
             var self = this;
             img.onload = function(){
-                var imageData = self.getImgData(img)
-                callback(imageData)
-            }
+                var imageData = self.getImgData(img);
+                callback(imageData);
+            };
             img.onerror = function(){
-                callback([])
-                console.log('图片加载失败！')
-            }
+                callback([]);
+                console.log('图片加载失败！');
+            };
         };
 
         this.getAverageColor = function(colorArr){
@@ -95,18 +94,18 @@
         this.isKeyExclude = function(key){
             for(var i=0; i<this.EXCLUDE_COLOR_LEVEL.length; i++){
                 if(this.EXCLUDE_COLOR_LEVEL[i] == key){
-                    return true
+                    return true;
                 }
             }
             return false;
         };
 
         this.getColorLevel = function(color){
-            return this.getLevel(color.r)+'_'+this.getLevel(color.g)+'_'+this.getLevel(color.b)+'_'+this.getLevel(color.a)
+            return this.getLevel(color.r)+'_'+this.getLevel(color.g)+'_'+this.getLevel(color.b)+'_'+this.getLevel(color.a);
         };
 
         this.getLevel = function(value){
-            return Math.round(value/this.LEVEL)
+            return Math.round(value/this.LEVEL);
         };
 
         this.getBlockColor = function(imageData, start){
@@ -122,12 +121,12 @@
                     a: imageData[start+i+3]
                 })
             }
-            return this.getAverageColor(data)
+            return this.getAverageColor(data);
         };
 
         this.Hex2Rgba = function(hex){
             if(hex.length != 4 && hex.length != 5 && hex.length != 7 && hex.length != 9){
-                return { r: 0, g: 0, b: 0, a: 255 }
+                return { r: 0, g: 0, b: 0, a: 255 };
             }
             var len = 2;
             (hex.length == 4 || hex.length == 5) && ( len = 1);
@@ -136,9 +135,9 @@
             var b = hex.substr(1+len*2, len);
             var a = 'f';
             if(hex.length == 5){
-                a = hex.substr(4, 1)
+                a = hex.substr(4, 1);
             }else if(hex.length == 9){
-                a = hex.substr(7, 2)
+                a = hex.substr(7, 2);
             }
             if(len == 1){
                 r += r; g += g; b += b; a += a;
@@ -168,14 +167,14 @@
                     color = this.Hex2Rgba(color);
                 }else{
                     if(this.RGBA_REG.test(color)){
-                        color = this.rgbaStr2Rgba(color)
+                        color = this.rgbaStr2Rgba(color);
                     }else{
                         color = null;
                     }
                 }
                 if(color){
                     var lvl = this.getColorLevel(color);
-                    this.EXCLUDE_COLOR_LEVEL.push(lvl)
+                    this.EXCLUDE_COLOR_LEVEL.push(lvl);
                 }
             }
         };
@@ -187,13 +186,13 @@
                 var blockColor = this.getBlockColor(imageData, i);
                 var key = this.getColorLevel(blockColor);
                 !mapData[key] && (mapData[key]=[]);
-                mapData[key].push(blockColor)
+                mapData[key].push(blockColor);
             }
             return mapData;
         };
 
         this.getResult = function(color){
-            var rgba = 'rgba('+color.r+','+color.g+','+color.b+','+(color.a/255).toFixed(4)+')';
+            var rgba = 'rgba('+color.r+','+color.g+','+color.b+','+(color.a/255).toFixed(4).replace(/\.*0+$/,'')+')';
             var rgb = 'rgb('+color.r+','+color.g+','+color.b+')';
             var hex = '#'+this.Num2Hex(color.r)+this.Num2Hex(color.g)+this.Num2Hex(color.b);
             var hexa = hex+this.Num2Hex(color.a);
@@ -208,23 +207,23 @@
         this.Num2Hex = function(num){
             var hex = num.toString(16)+'';
             if(hex.length < 2){
-                return '0'+hex
+                return '0'+hex;
             }else{
-                return hex
+                return hex;
             }
-        }
+        };
 
-        this.init =  function(){
+        this.init = function(){
             try{
                 var src = this.options.src || '';
                 if(!src){
-                    console.log('图片地址不能为空')
+                    console.log('图片地址不能为空');
                 }
                 typeof this.options.size == 'number' && this.options.size > 0 && (this.COLOR_SIZE = this.options.size);
                 typeof this.options.level == 'number' && this.options.level > 0 && this.options.level < 255 && (this.LEVEL = this.options.level);
                 Object.prototype.toString.call(this.options.exclude) === '[object Array]' && (this.EXCLUDE_COLOR = this.options.exclude);
             }catch (e){
-                console.log('出现了一些问题', e)
+                console.log('出现了一些问题', e);
                 return false;
             }
             var self = this;
@@ -236,22 +235,23 @@
                     hexa: ''
                 }
                 if(imageData.length < 4){
-                    self.callback(defRst)
+                    self.callback(defRst);
                 }else{
                     self.initExcludeLevel();
                     var mapData = self.getLevelData(imageData);
                     var colors = self.getMostColor(mapData);
                     if(!colors){
-                        self.callback(defRst)
+                        self.callback(defRst);
                     }else{
                         var color = self.getAverageColor(colors);
-                        self.callback(self.getResult(color))
+                        self.callback(self.getResult(color));
                     }
                 }
             })
         };
 
         this.init();
+
     };
 
     window.ImgMainColor = window.ImgMainColor || ImgMainColor;

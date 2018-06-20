@@ -4,6 +4,9 @@
 ## demo
 ```
 * [ImgMainColor Demos](https://whoiam2007s.github.io/ImgMainColor/demos.html)
+
+* [AlloyTouch Wiki](https://github.com/AlloyTeam/AlloyTouch/wiki)
+
 ```
 
 ## 传入参数

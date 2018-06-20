@@ -13,11 +13,54 @@
         width: 300px;
         height: 300px;
     }
+    .item img{
+        width: 100%;
+        height: 100%;
+    }
+    #file{
+        width: 100%;
+    }
+    .imgfile:after{
+        content: '';
+        display: block;
+        clear: both;
+    }
 </style>
+
+<div class="imgfile">
+    <input type="file" id="file" />
+    <div class="item item_file" id="demo"></div>
+    <div class="item" id="colors"></div>
+</div>
 
 <div class="demos"></div>
 
 <script>
+
+    function getLocationUrl(file, callback){
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload=function(){
+            callback(this.result)
+        }
+    }
+
+    document.getElementById('file').addEventListener('change', function(){
+      var file = this.files ? this.files[0] : null;
+      if(!file){return}
+      getLocationUrl(file, function(src){
+          document.getElementById('demo').innerHTML = '<img src="'+src+'" />'
+          new ImgMainColor({
+              src: src
+          }, function(color){
+              document.getElementById('demo').style.backgroundColor=color.hex;
+              document.getElementById('colors').innerHTML= '<p>HEX：'+color.hex+'</p>' +
+                  '<p>HEXA：'+color.hexa+'</p>' +
+                  '<p>RGB：'+color.rgb+'</p>' +
+                  '<p>RGBA：'+color.rgba+'</p>';
+          });
+      })
+    })
 
     var demos = document.getElementsByClassName('demos')[0];
     var html = '';

@@ -1,13 +1,8 @@
 # ImgMainColor
 > 获取图片主色调的插件
 
-## demo
-```
-* [ImgMainColor Demos](https://whoiam2007s.github.io/ImgMainColor/demos.html)
+[ImgMainColor Demos](https://whoiam2007s.github.io/ImgMainColor/demos.html)
 
-* [AlloyTouch Wiki](https://github.com/AlloyTeam/AlloyTouch/wiki)
-
-```
 
 ## 传入参数
 ```

@@ -14,12 +14,12 @@
     "Agent:",
     window.navigator.userAgent,
   ].join('<br>');
-  document.getElementById("content").innerHtml = content;
+  document.getElementById("content").innerHTML = content;
   
   var count = 0,
   timer = setInterval(() => {
     (window.croodsBridge || ++count > 100) && clearInterval(timer);
-    document.getElementById("content").innerHtml = "croodsBridge：" + typeof window.croodsBridge;
+    document.getElementById("content").innerHTML = "croodsBridge：" + typeof window.croodsBridge;
   }, 100);
   </script>
 </body>

@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width">
 </head>
 <body>
-<script>document.write(window.location.href)</script>
+  <div id="content"></div> 
+  <div id="status"></div> 
+<script>
+  var content = [
+    "URL:",
+    window.location.href,
+    "Agent:",
+    window.navigator.userAgent,
+  ].join('<br>');
+  document.getElementById("content").innerHtml = content;
+  
+  var count = 0,
+  timer = setInterval(() => {
+    (window.croodsBridge || ++count > 100) && clearInterval(timer);
+    document.getElementById("content").innerHtml = "croodsBridge：" + typeof window.croodsBridge;
+  }, 100);
+  </script>
 </body>
 </html>

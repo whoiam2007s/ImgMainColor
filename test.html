@@ -19,7 +19,7 @@
   var count = 0,
   timer = setInterval(() => {
     (window.croodsBridge || ++count > 100) && clearInterval(timer);
-    document.getElementById("content").innerHTML = "croodsBridge：" + typeof window.croodsBridge;
+    document.getElementById("status").innerHTML = "croodsBridge：" + typeof window.croodsBridge;
   }, 100);
   </script>
 </body>
